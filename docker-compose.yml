@@ -60,6 +60,18 @@ services:
     networks:
       - tm_app
 
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: tm-swagger-ui
+    environment:
+      SWAGGER_JSON: /docs/v1/openapi.yml
+    ports:
+      - 5000:8080
+    volumes:
+      - ./docs:/docs
+    networks:
+      - tm_app
+
 networks:
   tm_app:
 
