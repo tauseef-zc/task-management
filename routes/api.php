@@ -31,6 +31,7 @@ Route::prefix('v1')->group(function () {
         Route::middleware('auth:sanctum')->group(function () {           
             Route::put('reset-password', ResetPasswordController::class)->name('reset.password');
             Route::get('user', LoggedInUserController::class)->name('user');
+            Route::get('logout', LogoutController::class)->name('logout');
         });
 
     });
