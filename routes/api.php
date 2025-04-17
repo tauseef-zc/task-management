@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Auth\{
     ForgotPasswordController,
+    LoggedInUserController,
     LoginController,
     RegisterController,
     ResetPasswordController,
@@ -29,6 +30,7 @@ Route::prefix('v1')->group(function () {
         // Protected auth routes
         Route::middleware('auth:sanctum')->group(function () {           
             Route::put('reset-password', ResetPasswordController::class)->name('reset.password');
+            Route::get('user', LoggedInUserController::class)->name('user');
         });
 
     });
