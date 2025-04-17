@@ -53,4 +53,12 @@ interface IAuthService extends ServiceInterface
      */
     public function verifyUserEmail(array $payload): array;
 
+    /**
+     * resetPassword
+     * 
+     * @param array $payload
+     * @return array
+     */
+    public function resetPassword(array $payload): array;
+
 }

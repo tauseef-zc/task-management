@@ -5,6 +5,7 @@ namespace App\Services\V1\Auth;
 use App\Jobs\V1\Auth\VerifyUserEmail;
 use App\Models\User;
 use App\Notifications\V1\Auth\ForgotPasswordNotification;
+use App\Notifications\V1\Auth\ResetPasswordNotification;
 use App\Services\V1\BaseService;
 use App\Services\V1\Interfaces\Auth\IAuthService;
 use Illuminate\Http\Response;
@@ -125,6 +126,27 @@ class AuthService extends BaseService implements IAuthService
         }
 
         return $this->error('The otp is incorrect.', Response::HTTP_BAD_REQUEST );
+    }
+
+    /**
+     * @param array $payload
+     * @return array
+     */
+    public function resetPassword(array $payload): array
+    {
+        $user = $this->user->where('email', $payload['email'])->first();
+
+        if (!$user) {
+            return $this->error('User not found', Response::HTTP_NOT_FOUND);
+        }
+
+        $user->update(['password' => bcrypt($payload['password'])]);
+        $user->notify(new ResetPasswordNotification());
+
+        // Clear tokens
+        $user->tokens()->delete();
+
+        return $this->payload(['message'  => 'Password has been reset'], Response::HTTP_ACCEPTED);
     }
 
 }
