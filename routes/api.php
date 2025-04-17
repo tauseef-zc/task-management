@@ -4,9 +4,11 @@ use App\Http\Controllers\Api\V1\Auth\{
     ForgotPasswordController,
     LoggedInUserController,
     LoginController,
+    LogoutController,
     RegisterController,
     ResetPasswordController,
     ResetVerifyController,
+    UpdateAccountPasswordController,
     VerificationController
 };
 use Illuminate\Support\Facades\Route;
@@ -32,6 +34,7 @@ Route::prefix('v1')->group(function () {
             Route::put('reset-password', ResetPasswordController::class)->name('reset.password');
             Route::get('user', LoggedInUserController::class)->name('user');
             Route::get('logout', LogoutController::class)->name('logout');
+            Route::put('update-password', UpdateAccountPasswordController::class)->name('update.password');
         });
 
     });
