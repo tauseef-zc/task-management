@@ -1,0 +1,35 @@
+openapi: 3.0.3
+info:
+  title: Task Management API
+  version: 1.0.0
+  description: Version 1 of the API
+
+servers:
+  - url: http://localhost:8000/v1
+
+tags:
+  - name: Auth
+    description: Authentication endpoints
+  - name: Users
+    description: User management endpoints
+
+paths:
+  /auth/login:
+    $ref: ./paths/auth/login.yml
+  # /auth/register:
+  #   $ref: ./paths/auth/register.yml
+  # /users:
+  #   $ref: ./paths/users/index.yml
+  # /users/{id}:
+  #   $ref: ./paths/users/id.yml
+
+components:
+  schemas:
+    $ref: 
+      - ./components/schemas.yml
+      - ./components/schemas/users.yml
+      - ./components/schemas/auth.yml
+  responses:
+    $ref: ./components/responses.yml
+  parameters:
+    $ref: ./components/parameters.yml

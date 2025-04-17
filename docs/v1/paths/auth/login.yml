@@ -1,0 +1,15 @@
+post:
+  tags:
+    - Auth
+  summary: Login
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas.yml#/components/schemas/LoginRequest"
+  responses:
+    '200':
+      $ref: "../../components/responses.yml#/components/responses/LoginSuccess"
+    '401':
+      $ref: "../../components/responses.yml#/components/responses/Unauthorized"
