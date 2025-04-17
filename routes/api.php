@@ -25,7 +25,7 @@ Route::prefix('v1')->group(function () {
             Route::post('email/send-verification', [VerificationController::class, 'sendVerificationMail'])
                 ->name('verification.send');
             Route::post('verify', [VerificationController::class, 'verifyUser'])->name('verify.user');
-            Route::post('password-verify', ResetVerifyController::class)->name('verify.user');
+            Route::post('password-verify', ResetVerifyController::class)->name('password.verify.user');
             Route::post('forgot-password', ForgotPasswordController::class)->name('forgot.password');
         });
 
