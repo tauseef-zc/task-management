@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\Auth\{
     ForgotPasswordController,
     LoginController,
     RegisterController,
+    ResetPasswordController,
     ResetVerifyController,
     VerificationController
 };
@@ -21,8 +22,13 @@ Route::prefix('v1')->group(function () {
             Route::post('email/send-verification', [VerificationController::class, 'sendVerificationMail'])
                 ->name('verification.send');
             Route::post('verify', [VerificationController::class, 'verifyUser'])->name('verify.user');
-            Route::post('password-verify', [ResetVerifyController::class, 'verifyUser'])->name('verify.user');
+            Route::post('password-verify', ResetVerifyController::class)->name('verify.user');
             Route::post('forgot-password', ForgotPasswordController::class)->name('forgot.password');
+        });
+
+        // Protected auth routes
+        Route::middleware('auth:sanctum')->group(function () {           
+            Route::put('reset-password', ResetPasswordController::class)->name('reset.password');
         });
 
     });
