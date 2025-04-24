@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class TaskStatus extends Model
 {
     const ICON_PATH = 'uploads/icons/';
-    
+
     protected $fillable = [
         'name',
         'slug',
@@ -35,6 +35,17 @@ class TaskStatus extends Model
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+        
+    /**
+     * Accessor for the icon attribute.
+     *
+     * @return string|null
+     */
+    public function getIconAttribute(): ?string
+    {
+        return $this->attributes['icon'] ? asset(self::ICON_PATH . $this->attributes['icon']) : null;
     }
 
     /**
