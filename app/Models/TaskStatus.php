@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 
 class TaskStatus extends Model
 {
+    const ICON_PATH = 'uploads/icons/';
+    
     protected $fillable = [
         'name',
         'slug',

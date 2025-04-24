@@ -30,7 +30,7 @@ class TaskStatusService extends BaseService implements ITaskStatusService
             $payload['created_by'] = auth()->user()->id;
         
             if (request()->hasFile('icon')) {
-                $payload['icon'] = request()->file('icon')->store('uploads/icons', 'public');
+                $payload['icon'] = $this->uploadIcon(request()->file('icon'));
             }
 
             $taskStatus = $this->taskStatus->create($payload);
@@ -58,7 +58,7 @@ class TaskStatusService extends BaseService implements ITaskStatusService
             $taskStatus = $this->taskStatus->findOrFail($id);
 
             if (request()->hasFile('icon')) {
-                $payload['icon'] = request()->file('icon')->store('uploads/icons', 'public');
+                $payload['icon'] = $this->uploadIcon(request()->file('icon'));
             }
 
             $taskStatus->update($payload);
@@ -92,6 +92,20 @@ class TaskStatusService extends BaseService implements ITaskStatusService
         } catch (\Throwable $th) {
             return $this->error($th->getMessage(), Response::HTTP_BAD_REQUEST);
         }
+    }
+    
+    /**
+     * uploadIcon
+     *
+     * @param  File $file
+     * @return string
+     */
+    private function uploadIcon($file): string
+    {
+        $name = Str::random(10) . '.' . $file->getClientOriginalExtension();
+        $path = TaskStatus::ICON_PATH . $name;
+        $file->storeAs('public', $path);
+        return $name;
     }
 
 }
