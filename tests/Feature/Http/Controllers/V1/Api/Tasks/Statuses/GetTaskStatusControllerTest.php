@@ -5,17 +5,27 @@ namespace Tests\Feature\Http\Controllers\V1\Api\Tasks\Statuses;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class GetTaskStatusControllerTest extends TestCase
+final class GetTaskStatusControllerTest extends TestCase
 {
 
     use RefreshDatabase;
 
+    /**
+     * test_it_cannot_get_task_statuses_unauthenticated
+     *
+     * @return void
+     */
     public function test_it_cannot_get_task_statuses_unauthenticated(): void
     {
         $response = $this->getJson(route('tasks.statuses.index'));
         $response->assertUnauthorized();
     }
-
+    
+    /**
+     * test_it_should_get_task_statuses_empty
+     *
+     * @return void
+     */
     public function test_it_should_get_task_statuses_empty(): void
     {
         $user = $this->makeUser()->create();
