@@ -4,6 +4,7 @@ namespace App\Services\V1\Tasks;
 use App\Models\TaskStatus;
 use App\Services\V1\BaseService;
 use App\Services\V1\Interfaces\Tasks\ITaskStatusService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 
@@ -92,6 +93,16 @@ class TaskStatusService extends BaseService implements ITaskStatusService
         } catch (\Throwable $th) {
             return $this->error($th->getMessage(), Response::HTTP_BAD_REQUEST);
         }
+    }
+    
+    /**
+     * getTaskStatuses
+     *
+     * @return Collection
+     */
+    public function getTaskStatuses(): Collection
+    {
+        return $this->taskStatus->all();
     }
     
     /**

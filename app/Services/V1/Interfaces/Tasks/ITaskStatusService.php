@@ -3,6 +3,7 @@
 namespace App\Services\V1\Interfaces\Tasks;
 
 use App\Services\V1\Interfaces\ServiceInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 interface ITaskStatusService extends ServiceInterface {
     
@@ -30,5 +31,12 @@ interface ITaskStatusService extends ServiceInterface {
      * @return array
      */
     public function delete(int $id): array;
+
+    /**
+     * Get all task statuses.
+     *
+     * @return array
+     */
+    public function getTaskStatuses(): Collection;
 
 }
