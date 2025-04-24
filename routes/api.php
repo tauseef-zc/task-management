@@ -11,6 +11,11 @@ use App\Http\Controllers\Api\V1\Auth\{
     UpdateAccountPasswordController,
     VerificationController
 };
+use App\Http\Controllers\Api\V1\Tasks\Statuses\{
+    CreateTaskStatusController,
+    DeleteTaskStatusController,
+    UpdateTaskStatusController
+};
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -37,6 +42,21 @@ Route::prefix('v1')->group(function () {
             Route::put('update-password', UpdateAccountPasswordController::class)->name('update.password');
         });
 
+    });
+
+    // Task routes
+    Route::prefix('tasks')->name('tasks.')->group(function () {
+      
+        // Protected Task routes
+        Route::middleware('auth:sanctum')->group(function () {
+
+            // Task Status routes
+            Route::post('statuses', CreateTaskStatusController::class)->name('statuses.create');
+            Route::put('statuses/{taskStatus}', UpdateTaskStatusController::class)->name('statuses.update');
+            Route::delete('statuses/{taskStatus}', DeleteTaskStatusController::class)->name('statuses.delete');
+
+            // Task routes
+        });
     });
 
 });
