@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\V1\Auth\{
 use App\Http\Controllers\Api\V1\Tasks\Statuses\{
     CreateTaskStatusController,
     DeleteTaskStatusController,
+    GetTaskStatusController,
     UpdateTaskStatusController
 };
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,7 @@ Route::prefix('v1')->group(function () {
         Route::middleware('auth:sanctum')->group(function () {
 
             // Task Status routes
+            Route::get('statuses', GetTaskStatusController::class)->name('statuses.index');  
             Route::post('statuses', CreateTaskStatusController::class)->name('statuses.create');
             Route::put('statuses/{taskStatus}', UpdateTaskStatusController::class)->name('statuses.update');
             Route::delete('statuses/{taskStatus}', DeleteTaskStatusController::class)->name('statuses.delete');
