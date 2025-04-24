@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class TaskStatus extends Model
 {
@@ -33,5 +34,24 @@ class TaskStatus extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-    
+
+    /**
+     * Generate a unique slug for the task status.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            if ($model->isDirty('name')) {
+                $slug = Str::slug($model->name);
+                if (static::where('slug', $slug)->where('id', '!=', $model->id)->exists()) {
+                    $model->slug = $slug . '-' . $model->id;
+                } else {
+                    $model->slug = Str::slug($model->name);
+                }
+            }
+        });
+    }
+        
 }
