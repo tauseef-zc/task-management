@@ -2,6 +2,7 @@
 
 namespace App\Services\V1\Interfaces\Tasks;
 
+use App\Filters\TaskFilter;
 use App\Models\Task;
 use App\Services\V1\Interfaces\ServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,9 +12,10 @@ interface ITaskService extends ServiceInterface
     /**
      * getTasks
      *
+     * @param  TaskFilter $filter
      * @return Collection
      */
-    public function getTasks(): Collection;
+    public function getTasks(TaskFilter $filter): Collection;
     
     /**
      * create

@@ -2,6 +2,7 @@
 
 namespace App\Services\V1\Tasks;
 
+use App\Filters\TaskFilter;
 use App\Models\Task;
 use App\Services\V1\BaseService;
 use App\Services\V1\Interfaces\Tasks\ITaskService;
@@ -21,11 +22,12 @@ class TaskService extends BaseService implements ITaskService
     /**
      * getTasks
      *
+     * @param  TaskFilter $filter
      * @return Collection
      */
-    public function getTasks(): Collection
+    public function getTasks(TaskFilter $filter): Collection
     {
-        return $this->model->get();
+        return $this->model->filter($filter)->latest()->get();
     }
 
     /**
@@ -37,6 +39,7 @@ class TaskService extends BaseService implements ITaskService
     public function create(array $data): array
     {
         try {
+            $data['created_by'] = auth()->user()->id;
             $task = $this->model->create($data);
             return $this->payload([
                     'id' => $task->id,
