@@ -11,6 +11,13 @@ use App\Http\Controllers\Api\V1\Auth\{
     UpdateAccountPasswordController,
     VerificationController
 };
+use App\Http\Controllers\Api\V1\Tasks\{
+    CreateTaskController,
+    DeleteTaskController,
+    GetTaskController,
+    SingleTaskController,
+    UpdateTaskController
+};
 use App\Http\Controllers\Api\V1\Tasks\Projects\{
     CreateProjectController,
     DeleteProjectController,
@@ -72,6 +79,11 @@ Route::prefix('v1')->group(function () {
             Route::delete('projects/{project}', DeleteProjectController::class)->name('projects.delete');
 
             // Task routes
+            Route::get('/', GetTaskController::class)->name('tasks.index');
+            Route::get('/{task}', SingleTaskController::class)->name('tasks.single');
+            Route::post('/', CreateTaskController::class)->name('tasks.store');
+            Route::put('/{task}', UpdateTaskController::class)->name('tasks.update');
+            Route::delete('/{task}', DeleteTaskController::class)->name('tasks.delete');
         });
     });
 
