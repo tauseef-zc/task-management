@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TaskPriorityEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
@@ -23,6 +24,19 @@ class Task extends Model
         'attachments',
         'comments',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'due_date' => 'datetime',
+            'priority' => TaskPriorityEnum::class,
+        ];
+    }
 
     /**
      * The project that the task belongs to.
