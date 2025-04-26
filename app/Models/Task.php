@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use App\Enums\TaskPriorityEnum;
+use App\Traits\HasFilter;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    use HasFilter, HasFactory;
+
     protected $fillable = [
         'name',
         'slug',
