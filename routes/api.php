@@ -14,6 +14,8 @@ use App\Http\Controllers\Api\V1\Auth\{
 use App\Http\Controllers\Api\V1\Tasks\Projects\{
     CreateProjectController,
     DeleteProjectController,
+    GetProjectController,
+    SingleProjectController,
     UpdateProjectController
 };
 use App\Http\Controllers\Api\V1\Tasks\Statuses\{
@@ -63,6 +65,8 @@ Route::prefix('v1')->group(function () {
             Route::delete('statuses/{taskStatus}', DeleteTaskStatusController::class)->name('statuses.delete');
 
             // Project routes
+            Route::get('projects', GetProjectController::class)->name('projects.index');
+            Route::get('projects/{project}', SingleProjectController::class)->name('projects.single');
             Route::post('projects', CreateProjectController::class)->name('projects.store');
             Route::put('projects/{project}', UpdateProjectController::class)->name('projects.update');
             Route::delete('projects/{project}', DeleteProjectController::class)->name('projects.delete');
