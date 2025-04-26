@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('name', 150);
+            $table->string('slug', 150)->unique();
             $table->text('description')->nullable();
             $table->foreignId('status_id')->constrained('task_statuses')->cascadeOnDelete();
             $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
@@ -26,8 +26,8 @@ return new class extends Migration
             $table->string('progress')->default('0%');
             $table->string('estimated_time')->nullable();
             $table->string('spent_time')->nullable();
-            $table->string('attachments')->nullable();
-            $table->string('comments')->nullable();
+            $table->json('attachments')->nullable();
+            $table->json('comments')->nullable();
             $table->timestamps();
         });
     }
