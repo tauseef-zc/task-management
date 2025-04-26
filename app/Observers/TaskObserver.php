@@ -15,7 +15,6 @@ class TaskObserver
     {
         // Automatically set the slug before creating the task
         $slugExists = Task::where('slug', 'LIKE', '%' . Str::slug($task->name) . '%')->count();
-        $task->created_by = auth()->user()->id;
         $task->slug = $slugExists ? Str::slug($task->name) . '-' . uniqid() : Str::slug($task->name);
         $task->status_id = $task->status_id ?? TaskStatus::where('name', 'Pending')->first()->id; 
     }
