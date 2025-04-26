@@ -33,5 +33,14 @@ interface ITaskService extends ServiceInterface
      * @return array
      */
     public function update(Task $task, array $data): array;
+    
+    /**
+     * uploadAttachments
+     *
+     * @param  Task $task
+     * @param  array $data
+     * @return array
+     */
+    public function uploadAttachments(Task $task, array $data): array;
 
 }

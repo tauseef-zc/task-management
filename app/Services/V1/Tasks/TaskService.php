@@ -9,6 +9,7 @@ use App\Services\V1\Interfaces\Tasks\ITaskService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
 
 class TaskService extends BaseService implements ITaskService
 {
@@ -71,4 +72,49 @@ class TaskService extends BaseService implements ITaskService
             return $this->error($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    
+    /**
+     * uploadAttachments
+     *
+     * @param  Task $task
+     * @param  array $data
+     * @return array
+     */
+    public function uploadAttachments(Task $task, array $data): array
+    {
+        try {
+
+            $attachments = $task->attachments ? json_decode($task->attachments) : [];
+           
+            if (!isset($data['attachments']) || !is_array($data['attachments'])) {
+                return $this->error('Attachments are required', Response::HTTP_BAD_REQUEST);
+            }
+
+            foreach ($data['attachments'] as $attachment) {
+                $attachments[] = $this->upload($attachment);
+            }
+
+            $task->update([
+                'attachments' => json_encode($attachments),
+            ]);
+            
+            return $this->payload([
+                    'message' => 'Attachments uploaded successfully',
+                ], Response::HTTP_OK,
+            );
+            
+        } catch (\Exception | \Throwable $e) {
+            return $this->error($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private function upload(UploadedFile $file): string
+    {
+        $path = 'uploads/tasks/attachments/' . date('Y-m-d') . '/';
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs($path, $fileName, 'public');
+
+        return $path . $fileName;
+    }
+   
 }
