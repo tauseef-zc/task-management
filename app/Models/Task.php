@@ -39,6 +39,7 @@ class Task extends Model
         return [
             'due_date' => 'datetime',
             'priority' => TaskPriorityEnum::class,
+            'attachments' => 'json',
         ];
     }
 

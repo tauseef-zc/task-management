@@ -84,7 +84,7 @@ class TaskService extends BaseService implements ITaskService
     {
         try {
 
-            $attachments = $task->attachments ? json_decode($task->attachments) : [];
+            $attachments = $task->attachments ?? [];
            
             if (!isset($data['attachments']) || !is_array($data['attachments'])) {
                 return $this->error('Attachments are required', Response::HTTP_BAD_REQUEST);
@@ -95,7 +95,7 @@ class TaskService extends BaseService implements ITaskService
             }
 
             $task->update([
-                'attachments' => json_encode($attachments),
+                'attachments' => $attachments,
             ]);
             
             return $this->payload([
