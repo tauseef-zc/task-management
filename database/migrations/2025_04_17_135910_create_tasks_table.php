@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\TaskPriorityEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->foreignId('project_id')->constrained('projects')->cascadeOnDelete();
             $table->foreignId('parent_id')->nullable()->constrained('tasks')->nullOnDelete();
             $table->dateTime('due_date')->nullable();
-            $table->string('priority')->default('normal');
+            $table->enum('priority', TaskPriorityEnum::getValues())->default(TaskPriorityEnum::LOW->value);
             $table->string('progress')->default('0%');
             $table->string('estimated_time')->nullable();
             $table->string('spent_time')->nullable();
