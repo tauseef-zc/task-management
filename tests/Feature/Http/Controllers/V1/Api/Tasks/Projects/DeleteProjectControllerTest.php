@@ -28,7 +28,6 @@ final class DeleteProjectControllerTest extends TestCase
 
         $this->assertDatabaseMissing('projects', [
             'id' => $project->id,
-            'deleted_at' => null,
         ]);
     }
 
