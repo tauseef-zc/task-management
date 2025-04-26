@@ -17,9 +17,7 @@ final class UpdateTaskStatusControllerTest extends TestCase
     public function test_it_can_update_task_status(): void
     {
         $user = $this->makeUser()->create();
-        $taskStatus = $this->makeTaskStatus()->create([
-            'created_by' => $user->id
-        ]);
+        $taskStatus = $this->makeTaskStatus()->user($user)->create();
 
         $payload = [
             'name' => $this->faker->word,
@@ -51,9 +49,7 @@ final class UpdateTaskStatusControllerTest extends TestCase
     public function test_it_cannot_update_task_status_for_invalid_task_status(): void
     {
         $user = $this->makeUser()->create();
-        $taskStatus = $this->makeTaskStatus()->create([
-            'created_by' => $user->id
-        ]);
+        $taskStatus = $this->makeTaskStatus()->user($user)->create();
 
         $payload = [
             'name' => $this->faker->word,
