@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\Auth\{
     UpdateAccountPasswordController,
     VerificationController
 };
+use App\Http\Controllers\Api\V1\Tasks\Projects\CreateProjectController;
 use App\Http\Controllers\Api\V1\Tasks\Statuses\{
     CreateTaskStatusController,
     DeleteTaskStatusController,
@@ -56,6 +57,9 @@ Route::prefix('v1')->group(function () {
             Route::post('statuses', CreateTaskStatusController::class)->name('statuses.create');
             Route::put('statuses/{taskStatus}', UpdateTaskStatusController::class)->name('statuses.update');
             Route::delete('statuses/{taskStatus}', DeleteTaskStatusController::class)->name('statuses.delete');
+
+            // Project routes
+            Route::post('projects', CreateProjectController::class)->name('projects.store');
 
             // Task routes
         });
