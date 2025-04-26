@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\V1\Tasks\{
     DeleteTaskController,
     GetTaskController,
     SingleTaskController,
+    TaskAttachmentController,
     UpdateTaskController
 };
 use App\Http\Controllers\Api\V1\Tasks\Projects\{
@@ -84,6 +85,7 @@ Route::prefix('v1')->group(function () {
             Route::post('/', CreateTaskController::class)->name('tasks.store');
             Route::put('/{task}', UpdateTaskController::class)->name('tasks.update');
             Route::delete('/{task}', DeleteTaskController::class)->name('tasks.delete');
+            Route::post('/{task}/attachments', TaskAttachmentController::class)->name('tasks.attachments.store');
         });
     });
 
