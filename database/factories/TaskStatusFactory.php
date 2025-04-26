@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,6 +24,20 @@ class TaskStatusFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+    
+    /**
+     * Indicate that the model's created_by should be unique.
+     *
+     * @return static
+     */
+    public function user(?User $user = null): static
+    {
+        return $this->state(function (array $attributes) use ($user) {
+            return [
+                'created_by' => $user ? $user->id : User::factory()->create()->id,
+            ];
+        });
     }
     
 }
