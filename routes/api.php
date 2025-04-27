@@ -19,6 +19,11 @@ use App\Http\Controllers\Api\V1\Tasks\{
     TaskAttachmentController,
     UpdateTaskController
 };
+use App\Http\Controllers\Api\V1\Tasks\Comments\{
+    AddTaskCommentController,
+    DeleteTaskCommentController,
+    GetTaskCommentController
+};
 use App\Http\Controllers\Api\V1\Tasks\Projects\{
     CreateProjectController,
     DeleteProjectController,
@@ -85,7 +90,12 @@ Route::prefix('v1')->group(function () {
             Route::post('/', CreateTaskController::class)->name('tasks.store');
             Route::put('/{task}', UpdateTaskController::class)->name('tasks.update');
             Route::delete('/{task}', DeleteTaskController::class)->name('tasks.delete');
+
+            // Task attachments and comments
             Route::post('/{task}/attachments', TaskAttachmentController::class)->name('tasks.attachments.store');
+            Route::get('/{task}/comments', GetTaskCommentController::class)->name('tasks.comments');
+            Route::post('/{task}/comments', AddTaskCommentController::class)->name('tasks.comments.store');
+            Route::delete('/{task}/comments/{comment}', DeleteTaskCommentController::class)->name('tasks.comments.delete');
         });
     });
 
