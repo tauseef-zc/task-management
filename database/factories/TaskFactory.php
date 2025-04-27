@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\TaskPriorityEnum;
 use App\Models\Project;
+use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,19 +21,16 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         $user = User::factory()->create();
-        $project = Project::factory()->create([
-            'created_by' => $user->id,
-        ]);
+        $project = Project::factory()->create(['created_by' => $user->id]);
+        $taskStatus = TaskStatus::factory()->create();
 
         return [
-            //
             'name' => $this->faker->sentence(3),
             'slug' => $this->faker->slug(),
             'description' => $this->faker->paragraph(3),
             'created_by' => $user->id,
             'project_id' => $project->id,
-            'parent_id' => null,
-            'status_id' => $this->faker->numberBetween(1, 3),
+            'status_id' => $taskStatus->id,
             'due_date' => $this->faker->dateTimeBetween('now', '+1 month'),
             'priority' => $this->faker->randomElement(TaskPriorityEnum::getValues()),
             'progress' => $this->faker->numberBetween(0, 100),
@@ -70,6 +68,21 @@ class TaskFactory extends Factory
         return $this->state(function (array $attributes) use ($project) {
             return [
                 'project_id' => $project ? $project->id : Project::factory()->create()->id,
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the task has a parent task.
+     *
+     * @param  Task $task
+     * @return static
+     */
+    public function parent(?Task $task = null): static
+    {
+        return $this->state(function (array $attributes) use ($task) {
+            return [
+                'parent_id' => $task ? $task->id : Task::factory()->create()->id,
             ];
         });
     }
