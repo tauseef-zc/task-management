@@ -30,6 +30,7 @@ class TaskResource extends JsonResource
             'spent_time' => $this->spent_time,
             'attachments' => $this->attachments,
             'comments' => $this->comments,
+            'contributors' => $this->whenLoaded('contributors', fn($record) => UserResource::collection($record)),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
