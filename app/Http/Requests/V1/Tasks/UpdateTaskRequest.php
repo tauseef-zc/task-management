@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1\Tasks;
 
+use App\Enums\TaskPriorityEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateTaskRequest extends FormRequest
