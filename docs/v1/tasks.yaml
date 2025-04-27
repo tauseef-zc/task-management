@@ -1,0 +1,268 @@
+paths:
+  /tasks/statuses:
+    get:
+      tags: [Tasks]
+      summary: List Task Statuses
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskStatus'
+    post:
+      tags: [Tasks]
+      summary: Create Task Status
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/NewTaskStatus'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskStatus'
+  /tasks/statuses/{statusId}:
+    parameters:
+      - in: path
+        name: statusId
+        required: true
+        schema:
+          type: integer
+    put:
+      tags: [Tasks]
+      summary: Update Task Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTaskStatusNoIcon'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskStatus'
+    delete:
+      tags: [Tasks]
+      summary: Delete Task Status
+      responses:
+        '202':
+          description: Deleted
+  /tasks:
+    get:
+      tags: [Tasks]
+      summary: List Tasks
+      parameters:
+        - in: query
+          name: project
+          schema:
+            type: string
+        - in: query
+          name: priority
+          schema:
+            type: string
+            enum: [low, medium, high]
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: assignedTo
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sortBy
+          schema:
+            type: string
+            example: id,desc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      tags: [Tasks]
+      summary: Create Task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTask'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+  /tasks/{taskId}:
+    parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          type: integer
+    get:
+      tags: [Tasks]
+      summary: Get Task Detail
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    put:
+      tags: [Tasks]
+      summary: Update Task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTask'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    delete:
+      tags: [Tasks]
+      summary: Delete Task
+      responses:
+        '200':
+          description: Deleted
+  /tasks/{taskId}/attachments:
+    post:
+      tags: [Tasks]
+      summary: Upload Task Attachments
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                attachments:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '201':
+          description: Attachments Uploaded
+components:
+  schemas:
+    TaskStatus:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        color:
+          type: string
+        icon:
+          type: string
+          format: uri
+    NewTaskStatus:
+      type: object
+      required: [name, icon]
+      properties:
+        name:
+          type: string
+        icon:
+          type: string
+          format: binary
+    NewTaskStatusNoIcon:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        project:
+          $ref: './projects.yaml#/components/schemas/Project'
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+        created_by:
+          $ref: './auth.yaml#/components/schemas/User'
+        assigned_to:
+          $ref: './auth.yaml#/components/schemas/User'
+        priority:
+          type: string
+          enum: [low, medium, high]
+        due_date:
+          type: string
+          format: date-time
+        progress:
+          type: integer
+        estimated_time:
+          type: number
+        spent_time:
+          type: number
+    NewTask:
+      type: object
+      required: [name, project_id, status_id]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        project_id:
+          type: integer
+        status_id:
+          type: integer
+        priority:
+          type: string
+          enum: [low, medium, high]
+        due_date:
+          type: string
+          format: date-time
+    UpdateTask:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        assigned_to:
+          type: integer
+        status_id:
+          type: integer
+        priority:
+          type: string
+          enum: [low, medium, high]
+        due_date:
+          type: string
+          format: date-time

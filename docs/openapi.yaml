@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  title: Task Management API
+  version: '1.0.0'
+servers:
+  - url: http://localhost:8000/api/v1
+tags:
+  - name: Auth
+    description: Authentication endpoints
+  - name: Tasks
+    description: Task management endpoints
+  - name: Projects
+    description: Project management endpoints
+  - name: Comments
+    description: Comments endpoints
+paths:
+  /auth/login:
+    $ref: './v1/auth.yaml#/paths/~1auth~1login'
+  /auth/register:
+    $ref: './v1/auth.yaml#/paths/~1auth~1register'
+  /auth/email/send-verification:
+    $ref: './v1/auth.yaml#/paths/~1auth~1email~1send-verification'
+  /auth/password-verify:
+    $ref: './v1/auth.yaml#/paths/~1auth~1password-verify'
+  /auth/forgot-password:
+    $ref: './v1/auth.yaml#/paths/~1auth~1forgot-password'
+  /auth/reset-password:
+    $ref: './v1/auth.yaml#/paths/~1auth~1reset-password'
+  /auth/update-password:
+    $ref: './v1/auth.yaml#/paths/~1auth~1update-password'
+  /auth/logout:
+    $ref: './v1/auth.yaml#/paths/~1auth~1logout'
+  /tasks/statuses:
+    $ref: './v1/tasks.yaml#/paths/~1tasks~1statuses'
+  /tasks/statuses/{statusId}:
+    $ref: './v1/tasks.yaml#/paths/~1tasks~1statuses~1{statusId}'
+  /tasks:
+    $ref: './v1/tasks.yaml#/paths/~1tasks'
+  /tasks/{taskId}:
+    $ref: './v1/tasks.yaml#/paths/~1tasks~1{taskId}'
+  /tasks/{taskId}/attachments:
+    $ref: './v1/tasks.yaml#/paths/~1tasks~1{taskId}~1attachments'
+  /tasks/projects:
+    $ref: './v1/projects.yaml#/paths/~1tasks~1projects'
+  /tasks/projects/{projectId}:
+    $ref: './v1/projects.yaml#/paths/~1tasks~1projects~1{projectId}'
+  /tasks/{taskId}/comments:
+    $ref: './v1/comments.yaml#/paths/~1tasks~1{taskId}~1comments'
+  /tasks/{taskId}/comments/{commentId}:
+    $ref: './v1/comments.yaml#/paths/~1tasks~1{taskId}~1comments~1{commentId}'
