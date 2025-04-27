@@ -103,5 +103,24 @@ class Task extends Model
         return $this->hasMany(Task::class, 'parent_id');
     }
 
+    /**
+     * The contributors of the task.
+     *
+     * @var array
+     */
+    public function contributors()
+    {
+        return $this->belongsToMany(User::class, 'task_contributors', 'task_id', 'user_id');
+    }
+
+    /**
+     * The comments of the task.
+     *
+     * @var array
+     */
+    public function comments()
+    {
+        return $this->hasMany(TaskComment::class, 'task_id');
+    }
     
 }
