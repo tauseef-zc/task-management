@@ -21,8 +21,8 @@ This is a Task Management API built with Laravel 12, using a MySQL database, Red
 
 1. Clone this repository to your local machine:
     ```bash
-    git clone <repository_url>
-    cd <repository_directory>
+    git clone https://github.com/tauseef-zc/task-management
+    cd task-management
     ```
 
 2. Build and start the application containers using Docker Compose:
