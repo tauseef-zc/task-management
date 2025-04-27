@@ -10,6 +10,14 @@
         </testsuite>
         <testsuite name="Feature">
             <directory>tests/Feature</directory>
+            <exclude>tests/Feature/Http/Controllers/V1/Api/Auth</exclude>
+            <exclude>tests/Feature/Http/Controllers/V1/Api/Tasks</exclude>
+        </testsuite>
+        <testsuite name="Auth">
+            <directory>tests/Feature/Http/Controllers/V1/Api/Auth</directory>
+        </testsuite>
+        <testsuite name="Tasks">
+            <directory>tests/Feature/Http/Controllers/V1/Api/Tasks</directory>
         </testsuite>
     </testsuites>
     <source>
