@@ -15,7 +15,7 @@ class SingleTaskController extends Controller
      */
     public function __invoke(Task $task)
     {
-        $task->load('createdBy', 'assignedTo', 'project', 'status');
+        $task->load('createdBy', 'assignedTo', 'project', 'status', 'contributors');
         return TaskResource::make($task);
     }
     
