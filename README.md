@@ -32,10 +32,6 @@ This is a Task Management API built with Laravel 12, using a MySQL database, Red
 
 3. The application will be accessible at:
     - **Application URL:** [http://localhost:8000](http://localhost:8000)
-    - **Swagger API Documentation URL:** [http://localhost:5000/](http://localhost:5000/)
-    - **PhpMyAdmin URL:** [http://localhost:8080/](http://localhost:8080/)  
-      DB Username/Password: `root/root`
-    - **Mailhog URL:** [http://localhost:8025/](http://localhost:8025/)
 
 ### Environment Variables
 
@@ -44,6 +40,11 @@ The application uses environment variables for configuration. They are already s
 ## Running the Application
 
 After starting the containers with `docker-compose up --build`, the application will be up and running at `http://localhost:8000`.
+
+## Test Credentials
+
+- Username: test@test.com
+- Password: password
 
 ## API Documentation
 
@@ -54,6 +55,7 @@ You can access the Swagger API documentation at the following URL:
 
 You can access PhpMyAdmin for database management at:  
 [http://localhost:8080/](http://localhost:8080/)  
+
 **DB Credentials:**  
 - Username: `root`
 - Password: `root`
