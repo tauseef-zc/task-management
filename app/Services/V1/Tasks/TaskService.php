@@ -42,6 +42,11 @@ class TaskService extends BaseService implements ITaskService
         try {
             $data['created_by'] = auth()->user()->id;
             $task = $this->model->create($data);
+
+            if (isset($data['assigned_to'])) {
+                $this->addContributor($task, $data['assigned_to']);
+            }
+
             return $this->payload([
                     'id' => $task->id,
                     'message' => 'Task created successfully',
@@ -62,6 +67,10 @@ class TaskService extends BaseService implements ITaskService
     public function update(Task $task, array $data): array
     {
         try {
+            if (isset($data['assigned_to'])) {
+                $this->addContributor($task, $data['assigned_to']);
+            }
+
             $task->update($data);
             return $this->payload([
                     'id' => $task->id,
@@ -107,7 +116,13 @@ class TaskService extends BaseService implements ITaskService
             return $this->error($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-
+    
+    /**
+     * upload
+     *
+     * @param  UploadedFile $file
+     * @return string
+     */
     private function upload(UploadedFile $file): string
     {
         $path = 'uploads/tasks/attachments/' . date('Y-m-d') . '/';
@@ -115,6 +130,23 @@ class TaskService extends BaseService implements ITaskService
         $file->storeAs($path, $fileName, 'public');
 
         return $path . $fileName;
+    }
+    
+    /**
+     * addContributor
+     *
+     * @param  Task $task
+     * @param  int $userId
+     * @return void
+     */
+    private function addContributor(Task $task, int $userId): void
+    {
+        if(!$task->contributors()->where('user_id', $userId)->exists()) {
+            $task->contributors()->attach($userId, [
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
    
 }
