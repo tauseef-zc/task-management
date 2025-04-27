@@ -85,17 +85,17 @@ Route::prefix('v1')->group(function () {
             Route::delete('projects/{project}', DeleteProjectController::class)->name('projects.delete');
 
             // Task routes
-            Route::get('/', GetTaskController::class)->name('tasks.index');
-            Route::get('/{task}', SingleTaskController::class)->name('tasks.single');
-            Route::post('/', CreateTaskController::class)->name('tasks.store');
-            Route::put('/{task}', UpdateTaskController::class)->name('tasks.update');
-            Route::delete('/{task}', DeleteTaskController::class)->name('tasks.delete');
+            Route::get('/', GetTaskController::class)->name('index');
+            Route::get('/{task}', SingleTaskController::class)->name('single');
+            Route::post('/', CreateTaskController::class)->name('store');
+            Route::put('/{task}', UpdateTaskController::class)->name('update');
+            Route::delete('/{task}', DeleteTaskController::class)->name('delete');
 
             // Task attachments and comments
-            Route::post('/{task}/attachments', TaskAttachmentController::class)->name('tasks.attachments.store');
-            Route::get('/{task}/comments', GetTaskCommentController::class)->name('tasks.comments');
-            Route::post('/{task}/comments', AddTaskCommentController::class)->name('tasks.comments.store');
-            Route::delete('/{task}/comments/{comment}', DeleteTaskCommentController::class)->name('tasks.comments.delete');
+            Route::post('/{task}/attachments', TaskAttachmentController::class)->name('attachments.store');
+            Route::get('/{task}/comments', GetTaskCommentController::class)->name('comments');
+            Route::post('/{task}/comments', AddTaskCommentController::class)->name('comments.store');
+            Route::delete('/{task}/comments/{comment}', DeleteTaskCommentController::class)->name('comments.delete');
         });
     });
 

@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('name', 150);
             $table->string('slug', 150)->unique();
             $table->text('description')->nullable();
-            $table->foreignId('status_id')->constrained('task_statuses')->cascadeOnDelete();
-            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('status_id')->nullable()->constrained('task_statuses')->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnDelete();
             $table->foreignId('assigned_to')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('project_id')->constrained('projects')->cascadeOnDelete();
+            $table->foreignId('project_id')->nullable()->constrained('projects')->cascadeOnDelete();
             $table->foreignId('parent_id')->nullable()->constrained('tasks')->nullOnDelete();
             $table->dateTime('due_date')->nullable();
             $table->enum('priority', TaskPriorityEnum::getValues())->default(TaskPriorityEnum::LOW->value);

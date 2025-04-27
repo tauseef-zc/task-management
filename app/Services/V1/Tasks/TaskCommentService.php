@@ -73,6 +73,10 @@ class TaskCommentService extends BaseService implements ITaskCommentService {
                 return $this->error('Comment not found for this task', Response::HTTP_NOT_FOUND);
             }
 
+            if ($comment->user_id !== auth()->user()->id) {
+                return $this->error('You are not authorized to delete this comment', Response::HTTP_FORBIDDEN);
+            }
+
             $comment->delete();
 
             return $this->payload([

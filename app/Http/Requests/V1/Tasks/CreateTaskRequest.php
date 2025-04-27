@@ -30,7 +30,7 @@ class CreateTaskRequest extends FormRequest
             'project_id' => ['required', 'integer', 'exists:projects,id'],
             'parent_id' => ['sometimes', 'nullable', 'integer', 'exists:tasks,id'],
             'assigned_to' => ['sometimes', 'nullable', 'integer', 'exists:users,id'],
-            'status_id' => ['sometimes', 'integer', 'exists:task_statuses,id'],
+            'status_id' => ['required', 'integer', 'exists:task_statuses,id'],
             'due_date'  => ['sometimes', 'nullable', 'date'],
             'priority'  => ['sometimes', 'nullable', 'string', 'in:' . implode(',', TaskPriorityEnum::getValues())],
             'progress'  => ['sometimes', 'nullable', 'integer', 'min:0', 'max:100'],
