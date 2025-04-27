@@ -9,6 +9,8 @@ paths:
     get:
       tags: [Comments]
       summary: List Comments
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: OK
@@ -21,6 +23,8 @@ paths:
     post:
       tags: [Comments]
       summary: Add Comment
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -38,6 +42,8 @@ paths:
     delete:
       tags: [Comments]
       summary: Delete Comment
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: taskId
@@ -53,6 +59,11 @@ paths:
         '200':
           description: Deleted
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     Comment:
       type: object

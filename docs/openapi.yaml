@@ -1,9 +1,13 @@
 openapi: 3.0.3
+
 info:
   title: Task Management API
   version: '1.0.0'
+  description: API documentation for the Task Management application.
+
 servers:
   - url: http://localhost:8000/api/v1
+
 tags:
   - name: Auth
     description: Authentication endpoints
@@ -13,6 +17,14 @@ tags:
     description: Project management endpoints
   - name: Comments
     description: Comments endpoints
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      
 paths:
   /auth/login:
     $ref: './v1/auth.yaml#/paths/~1auth~1login'
@@ -30,6 +42,8 @@ paths:
     $ref: './v1/auth.yaml#/paths/~1auth~1update-password'
   /auth/logout:
     $ref: './v1/auth.yaml#/paths/~1auth~1logout'
+  /auth/user:
+    $ref: './v1/auth.yaml#/paths/~1auth~1user'
   /tasks/statuses:
     $ref: './v1/tasks.yaml#/paths/~1tasks~1statuses'
   /tasks/statuses/{statusId}:
