@@ -1,61 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Task Management App API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Author:** Tauseef Ahamed  
+**Email:** tauseef.offl@gmail.com  
+**Portfolio:** [tauseef-ahamed.vercel.app](https://tauseef-ahamed.vercel.app/)  
+**Stack:** Laravel 12, PHP 8.3, MySQL 8, Redis, Mailhog  
+**Version:** v1
 
-## About Laravel
+## Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This is a Task Management API built with Laravel 12, using a MySQL database, Redis caching, and Mailhog for mail testing. The application provides functionality for user authentication, task management, and more.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Setup Instructions
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Prerequisites
 
-## Learning Laravel
+- Docker
+- Docker Compose
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Docker Setup
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. Clone this repository to your local machine:
+    ```bash
+    git clone <repository_url>
+    cd <repository_directory>
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. Build and start the application containers using Docker Compose:
+    ```bash
+    docker-compose up --build
+    ```
 
-## Laravel Sponsors
+3. The application will be accessible at:
+    - **Application URL:** [http://localhost:8000](http://localhost:8000)
+    - **Swagger API Documentation URL:** [http://localhost:5000/](http://localhost:5000/)
+    - **PhpMyAdmin URL:** [http://localhost:8080/](http://localhost:8080/)  
+      DB Username/Password: `root/root`
+    - **Mailhog URL:** [http://localhost:8025/](http://localhost:8025/)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Environment Variables
 
-### Premium Partners
+The application uses environment variables for configuration. They are already set in the `.env` file, but you can adjust them as needed for your local or production environment.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+## Running the Application
 
-## Contributing
+After starting the containers with `docker-compose up --build`, the application will be up and running at `http://localhost:8000`.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## API Documentation
 
-## Code of Conduct
+You can access the Swagger API documentation at the following URL:  
+[http://localhost:5000/](http://localhost:5000/)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## PhpMyAdmin
 
-## Security Vulnerabilities
+You can access PhpMyAdmin for database management at:  
+[http://localhost:8080/](http://localhost:8080/)  
+**DB Credentials:**  
+- Username: `root`
+- Password: `root`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Mailhog
 
-## License
+Mailhog is used to capture outgoing emails for testing purposes. You can access it at:  
+[http://localhost:8025/](http://localhost:8025/)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Testing
+
+To run tests, use the following command:
+```bash
+docker-compose exec php artisan test
+```
+
+feature specific test commands:
+
+for Auth: 
+```bash
+docker-compose exec php artisan test --testsuite=Auth
+```
+
+for Tasks: 
+```bash
+docker-compose exec php artisan test --testsuite=Tasks
+```
